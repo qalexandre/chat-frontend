@@ -19,13 +19,13 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
 
   const location = useLocation();
 
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-
+    document.title = `Room: ${room}`;
     socket = io(ENDPOINT);
 
     setName(name);
