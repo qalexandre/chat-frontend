@@ -1,0 +1,38 @@
+.barTalks {
+    background-color: burlywood;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.button-room,
+.button-chat {
+    height: 50px;
+}
+
+.new-room {
+    display: flex;
+    align-items: center;
+    height: 10%;
+}
+
+.new-room:hover {
+    background-color: red;
+}
+
+.rooms {
+    overflow-y: auto;
+    height: 65vh;
+}
+
+.room {
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.room:hover {
+    background-color: red;
+}

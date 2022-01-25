@@ -1,0 +1,10 @@
+.infoBarProfile {
+    background-color: blue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.info-name {
+    font-size: 20px;
+}

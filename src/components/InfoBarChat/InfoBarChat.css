@@ -1,0 +1,9 @@
+.infoBarChat {
+    display: flex;
+    align-items: center;
+    background-color: blueviolet;
+}
+
+.info-room {
+    font-size: 20px;
+}

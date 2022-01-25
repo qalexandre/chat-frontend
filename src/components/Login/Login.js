@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 
-import "./Join.css";
+import "./Login.css";
 
 let socket;
 
-const Join = () => {
+const Login = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,28 +14,31 @@ const Join = () => {
 
   const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
 
-  document.title = "Register";
+  document.title = "Login";
 
   useEffect(() => {
     socket = io(ENDPOINT);
   }, [ENDPOINT]);
 
-  const registerUser = () => {
-    socket.emit("register", { name, password }, (callback) => {
+  const getUser = async () => {
+    socket.emit("login", { name, password }, (callback) => {
       if (!callback.error) {
-        const { name, password } = callback;
-        navigate("/chat", {
-          replace: true,
-          state: { name: name, password: password },
-        });
-      }
+        if (callback.name) {
+          const { name, password } = callback;
+          console.log(callback);
+          navigate("/chat", {
+            replace: true,
+            state: { name: name, password: password },
+          });
+        } else alert("erro");
+      } else alert(callback.error);
     });
   };
 
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
-        <h1 className="heading"> Join </h1>
+        <h1 className="heading"> Login </h1>
         <div>
           <input
             placeholder="Name"
@@ -53,12 +56,12 @@ const Join = () => {
           />
         </div>
 
-        <button onClick={registerUser} className="button mt-20" type="submit">
-          Sign up
+        <button onClick={getUser} className="button mt-20" type="submit">
+          Sign in
         </button>
       </div>
     </div>
   );
 };
 
-export default Join;
+export default Login;
