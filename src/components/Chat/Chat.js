@@ -24,7 +24,7 @@ const Chat = () => {
   const [showRooms, setShowRooms] = useState(true);
   const [showChats, setShowChats] = useState(false);
 
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
 
   const location = useLocation();
 

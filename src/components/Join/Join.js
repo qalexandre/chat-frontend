@@ -12,7 +12,7 @@ const Join = () => {
 
   const navigate = useNavigate();
 
-  const ENDPOINT = "localhost:5000";
+  const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
 
   document.title = "Register";
 
