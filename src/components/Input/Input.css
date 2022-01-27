@@ -1,6 +1,7 @@
 .form {
     display: flex;
     border-top: 2px solid #d3d3d3;
+    margin-top: 0vh;
 }
 
 .input {
@@ -22,7 +23,6 @@ select:focus {
     text-transform: uppercase;
     text-decoration: none;
     background: #2979ff;
-    padding: 20px;
     display: inline-block;
     border: none;
     width: 20%;

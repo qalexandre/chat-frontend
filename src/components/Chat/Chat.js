@@ -15,14 +15,16 @@ let socket;
 
 const Chat = () => {
   const [name, setName] = useState("");
-  const [room, setRoom] = useState({});
+  const [room, setRoom] = useState();
   const [rooms, setRooms] = useState([]);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [chat, setChat] = useState();
   const [chats, setChats] = useState([]);
+  const [showRooms, setShowRooms] = useState(true);
+  const [showChats, setShowChats] = useState(false);
 
-  const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
+  const ENDPOINT = "localhost:5000";
 
   const location = useLocation();
 
@@ -44,17 +46,39 @@ const Chat = () => {
     socket.on("getChats", ({ chats }) => {
       setChats(chats);
     });
+    socket.on("message", ({ messageCreated }) => {
+      setMessages(messageCreated.messages);
+    });
   });
 
-  const selectRoom = (room) => {
-    setRoom(room);
-    socket.emit("getRoom", { room }, (callback) => {
+  const refreshInfo = () => {
+    socket.emit("refresh", () => {});
+  };
+
+  const selectRoom = (newRoom) => {
+    let lastRoom = room;
+    setRoom(newRoom);
+    setChat();
+    socket.emit("getRoom", { newRoom, lastRoom }, (callback) => {
       if (callback.error) alert(callback.error);
       else {
         setMessages(callback.messages);
       }
     });
-    setMessages(room.messages);
+    setMessages(newRoom.messages);
+  };
+
+  const selectChat = (newChat) => {
+    let lastChat = chat;
+    setChat(newChat);
+    setRoom();
+    socket.emit("getChat", { newChat, lastChat }, (callback) => {
+      if (callback.error) alert(callback.error);
+      else {
+        setMessages(callback.messages);
+      }
+    });
+    setMessages(newChat.messages);
   };
 
   const createNewRoom = () => {
@@ -77,83 +101,76 @@ const Chat = () => {
     }
   };
 
-  const sendMessage = (event) => {
+  const sendMessageRoom = (event) => {
     event.preventDefault();
-    socket.emit("sendMessage", { room, message }, (callback) => {
+    socket.emit("sendMessageRoom", { room, message }, (callback) => {
       if (callback.error) alert(callback.error);
       else {
         setMessages(callback.messages);
-        setMessage("");
+        setMessage(null);
       }
     });
   };
-
-  useEffect(() => {
-    socket.on("message", ({ messageCreated }) => {
-      console.log("oi");
-      setMessages(messageCreated.messages);
-    });
-  }, [messages]);
-  /*const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
-
-  
-
-  useEffect(() => {
-    const { name, room } = queryString.parse(location.search);
-    document.title = `Room: ${room}`;
-    socket = io(ENDPOINT);
-
-    setName(name);
-    setRoom(room);
-
-    socket.emit("join", { name, room }, (error) => {
-      if (error) {
-        alert(error);
-      }
-    });
-
-    return () => {
-      socket.emit("disconnect");
-      socket.off();
-    };
-  }, [ENDPOINT, location.search]);
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setMessages([...messages, message]);
-    });
-    socket.on("roomData", ({ users }) => {
-      setUsers(users);
-    });
-  }, [messages]);
-
-  const sendMessage = (event) => {
+  const sendMessageChat = (event) => {
     event.preventDefault();
-
-    if (message) {
-      socket.emit("sendMessage", message, () => setMessage(""));
-    }
+    socket.emit("sendMessageChat", { chat, message }, (callback) => {
+      if (callback.error) alert(callback.error);
+      else {
+        setMessages(callback.messages);
+        setMessage(null);
+      }
+    });
   };
-*/
+  /*
+  const deleteMessageRoom = (message) => {
+    socket.emit("deleteMessage", { room, message }, (callback) => {
+      if (callback.error) alert(callback.error);
+      else {
+        setMessages(callback.messages);
+      }
+    });
+  };*/
+
+  const addUser = () => {
+    let name = prompt("Type username");
+    alert(typeof name);
+    if (name) {
+      socket.emit("addUserRoom", { room, name }, (callback) => {
+        if (callback.error) console.log(callback.error);
+        else alert("Success");
+      });
+    } else alert("erro");
+  };
+
   return (
     <div className="container">
-      <InfoBarProfile name={name} />
+      <InfoBarProfile refreshInfo={refreshInfo} name={name} />
 
-      <InfoBarChat room={room} chat={chat} />
+      <InfoBarChat room={room} chat={chat} addUser={addUser} />
       <BarTalks
         createNewRoom={createNewRoom}
         createNewChat={createNewChat}
         room={room}
         selectRoom={selectRoom}
+        selectChat={selectChat}
         setChat={setChat}
+        setRoom={setRoom}
         rooms={rooms}
         chats={chats}
+        name={name}
+        showChats={showChats}
+        showRooms={showRooms}
+        setShowChats={setShowChats}
+        setShowRooms={setShowRooms}
       />
       <Messages messages={messages} name={name} />
       <Input
         message={message}
         setMessage={setMessage}
-        sendMessage={sendMessage}
+        sendMessageRoom={sendMessageRoom}
+        sendMessageChat={sendMessageChat}
+        showRooms={showRooms}
+        showChats={showChats}
       />
     </div>
   );

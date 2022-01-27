@@ -12,7 +12,7 @@ const Join = () => {
 
   const navigate = useNavigate();
 
-  const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
+  const ENDPOINT = "localhost:5000";
 
   document.title = "Register";
 
@@ -35,7 +35,7 @@ const Join = () => {
   return (
     <div className="joinOuterContainer">
       <div className="joinInnerContainer">
-        <h1 className="heading"> Join </h1>
+        <h1 className="heading"> Register </h1>
         <div>
           <input
             placeholder="Name"
@@ -52,7 +52,10 @@ const Join = () => {
             className="joinInput mt-20"
           />
         </div>
-
+        <br />
+        <a href="/login" className="link-login">
+          I already have an account
+        </a>
         <button onClick={registerUser} className="button mt-20" type="submit">
           Sign up
         </button>

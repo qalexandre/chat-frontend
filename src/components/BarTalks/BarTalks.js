@@ -7,34 +7,64 @@ const BarTalks = ({
   chats,
   selectRoom,
   setChat,
+  setRoom,
+  selectChat,
   room,
   createNewRoom,
   createNewChat,
+  name,
+  showChats,
+  showRooms,
+  setShowChats,
+  setShowRooms,
 }) => {
-  const [showRooms, setShowRooms] = useState(true);
-  const [showChats, setShowChats] = useState(false);
-
   return (
     <div className="barTalks">
       <div className="buttons">
-        <button
-          onClick={() => {
-            setShowRooms(true);
-            setShowChats(false);
-          }}
-          className="button-room"
-        >
-          Rooms
-        </button>
-        <button
-          onClick={() => {
-            setShowRooms(false);
-            setShowChats(true);
-          }}
-          className="button-chat"
-        >
-          Chats
-        </button>
+        {showRooms ? (
+          <button
+            onClick={() => {
+              setShowRooms(true);
+              setShowChats(false);
+            }}
+            className="button-room selected"
+          >
+            Rooms
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setShowRooms(true);
+              setShowChats(false);
+            }}
+            className="button-room "
+          >
+            Rooms
+          </button>
+        )}
+        {showChats ? (
+          <button
+            onClick={() => {
+              setShowRooms(false);
+              //setShowChats(true);
+              alert("not working for now");
+            }}
+            className="button-chat selected"
+          >
+            Chats
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setShowRooms(false);
+              //setShowChats(true);
+              alert("not working for now");
+            }}
+            className="button-chat"
+          >
+            Chats
+          </button>
+        )}
       </div>
 
       <div
@@ -44,7 +74,7 @@ const BarTalks = ({
         }}
         className="new-room"
       >
-        Criar novo
+        ⠀Criar novo +
       </div>
       <div className="rooms">
         {showRooms &&
@@ -57,7 +87,7 @@ const BarTalks = ({
               }}
               key={i}
             >
-              {room.title}
+              ⠀{room.title}
             </div>
           ))}
 
@@ -66,12 +96,15 @@ const BarTalks = ({
             <div
               className="room"
               onClick={() => {
-                setChat(chat);
-                selectRoom();
+                selectChat(chat);
+                setRoom();
               }}
               key={i}
             >
-              {chat.participants[0].name}
+              ⠀
+              {chat.participants[0].name == name
+                ? chat.participants[1].name
+                : name}
             </div>
           ))}
       </div>

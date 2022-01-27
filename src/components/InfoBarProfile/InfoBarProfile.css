@@ -1,10 +1,18 @@
 .infoBarProfile {
-    background-color: blue;
+    background-color: rgb(9, 64, 95);
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    justify-content: space-between;
 }
 
 .info-name {
     font-size: 20px;
+    color: white;
+    margin-left: 10px;
+}
+
+.refresh img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }

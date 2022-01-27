@@ -5,26 +5,44 @@
 .buttons {
     display: grid;
     grid-template-columns: 50% 50%;
+    background-color: rgb(9, 64, 95);
 }
 
 .button-room,
 .button-chat {
     height: 50px;
+    background-color: rgb(9, 64, 95);
+    border: 0.4px solid rgb(6, 38, 56);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.selected {
+    background-color: rgb(21, 133, 197);
 }
 
 .new-room {
     display: flex;
     align-items: center;
+    background-color: rgb(9, 64, 95);
     height: 10%;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .new-room:hover {
-    background-color: red;
+    background-color: rgb(42, 129, 89);
 }
 
 .rooms {
     overflow-y: auto;
-    height: 65vh;
+    height: 100%;
+    background-color: rgb(9, 64, 95);
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .room {
@@ -34,5 +52,5 @@
 }
 
 .room:hover {
-    background-color: red;
+    background-color: rgb(21, 133, 197);
 }

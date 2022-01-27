@@ -1,0 +1,8 @@
+.link-register {
+    text-decoration: none;
+    color: rgb(136, 134, 134);
+}
+
+.link-register:hover {
+    text-decoration: underline;
+}

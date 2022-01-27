@@ -12,7 +12,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const ENDPOINT = "https://chat-backend-nod.herokuapp.com/";
+  const ENDPOINT = "localhost:5000";
 
   document.title = "Login";
 
@@ -55,7 +55,10 @@ const Login = () => {
             className="joinInput mt-20"
           />
         </div>
-
+        <br />
+        <a href="/" className="link-register">
+          I don't have an account
+        </a>
         <button onClick={getUser} className="button mt-20" type="submit">
           Sign in
         </button>

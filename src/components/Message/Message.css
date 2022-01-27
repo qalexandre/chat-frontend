@@ -4,7 +4,7 @@
     padding: 5px 20px;
     color: white;
     display: inline-block;
-    max-width: 80%;
+    height: 100%;
 }
 
 .messageText {
@@ -64,4 +64,10 @@
 
 .backgroundLight {
     background: #cacaca;
+}
+
+.deleteMessage {
+    width: 16px;
+    height: 16px;
+    float: right;
 }

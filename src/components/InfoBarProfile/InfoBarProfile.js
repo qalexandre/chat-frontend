@@ -2,11 +2,15 @@ import React from "react";
 
 import "./InfoBarProfile.css";
 
-const InfoBarProfile = (props) => {
+import Refresh from "../../icons/refresh-button.png";
+
+const InfoBarProfile = ({ name, refreshInfo }) => {
   return (
     <div className="infoBarProfile">
-      <div className="info-name">{props.name}</div>
-      <div className="info-status">Online</div>
+      <div className="info-name">{name}</div>
+      <div onClick={refreshInfo} className="refresh">
+        <img src={Refresh} alt="Refresh-info" />
+      </div>
     </div>
   );
 };

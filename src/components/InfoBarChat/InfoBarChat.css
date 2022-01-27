@@ -1,9 +1,24 @@
 .infoBarChat {
     display: flex;
     align-items: center;
-    background-color: blueviolet;
+    background-color: rgb(9, 64, 95);
+    justify-content: space-between;
 }
 
 .info-room {
     font-size: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.add-user {
+    border: 0;
+    background: none;
+}
+
+.add-user img {
+    width: 30px;
+    height: 30px;
+    background-color: rgb(21, 133, 197);
+    border-radius: 20px;
 }
